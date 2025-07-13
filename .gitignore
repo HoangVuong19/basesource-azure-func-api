@@ -1,0 +1,10 @@
+**/__pycache__
+**/.env
+.venv
+.vscode
+.git
+.idea
+node_modules
+coverage
+api_test.db
+logs
