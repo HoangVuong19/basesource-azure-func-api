@@ -2,20 +2,20 @@ fastapi==0.111.0
 sqlalchemy==2.0.31
 pydantic==2.7.4
 pydantic-settings==2.3.3
-contextvars~=2.4
-starlette~=0.37.2
-SQLAlchemy-Utils~=0.41.2
-bcrypt~=4.2.0
-pyjwt~=2.9.0
-pytz~=2024.1
-psycopg2~=2.9.9
+starlette==0.37.2
+SQLAlchemy-Utils==0.41.2
+bcrypt==4.2.0
+pyjwt==2.9.0
+pytz==2024.1
+psycopg2-binary==2.9.9
 transaction==4.0
 
 # test package
 pytest==8.2.2
 pytest-mock==3.14.0
 pytest-asyncio==0.23.6
-pytest-anyio== 0.0.0
+pytest-anyio==0.0.0
 httpx==0.28.1
 
 alembic==1.13.1
+azure-functions==1.23.0

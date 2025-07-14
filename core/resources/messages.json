@@ -1,0 +1,16 @@
+{
+  "SYSTEM_EXCEPTION": {
+    "SYSTEM_ERROR": "Internal server error occurred!",
+    "DB_OPERATIONAL": "Database operation failed!"
+  },
+  "APP_EXCEPTION": {
+    "REQUIRED_ERROR": "{field_name} is required.",
+    "NOT_FOUND_ERROR": "{field_name} is not found.",
+    "MIN_LEN_ERROR": "{field_name} must be at least {min_len} characters long.",
+    "MAX_LEN_ERROR": "{field_name} must be maximum {max_len} characters long.",
+    "CONCURRENCY_CONFLICT_ERROR": "Data has been modified by another user. Please refresh and try again.",
+    "RESOURCE_NOT_FOUND": "The requested resource was not found.",
+    "UNAUTHORIZED": "Unauthorized",
+    "DECODE_ERROR": "Token invalid"
+  }
+}

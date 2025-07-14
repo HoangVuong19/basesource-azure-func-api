@@ -1,18 +1,20 @@
 - Create python venv
 
-> py -m venv .venv
+> /opt/homebrew/bin/python3.10 -m venv .venv
 
 - Use Venv
 
-> .\.venv\Scripts\activate
+> . .venv/bin/activate
 
 - Install libs
 
-> pip3 install -r requirements.txt
+> pip install -r requirements.txt
+
+> npm install -g azure-functions-core-tools@4 --unsafe-perm true
 
 - Dev run
 
-> fastapi run main.py
+> func start
 
 - Initialize alembic
 

@@ -1,0 +1,8 @@
+- Create file migration  
+> alembic revision -m ""
+> alembic revision --autogenerate -m "new action"
+
+- Run migration file
+> alembic upgrade <revision_id>
+> alembic upgrade head
+> alembic downgrade <revision_id>
