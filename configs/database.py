@@ -2,7 +2,7 @@ from typing import TypeVar
 from fastapi import Request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from core.configs.env import get_settings
+from configs.env import get_settings
 from sqlalchemy.engine import URL
 
 settings = get_settings()

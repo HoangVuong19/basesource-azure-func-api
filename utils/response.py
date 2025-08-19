@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 from fastapi.responses import JSONResponse
 
-from core.exceptions.base_exception import BaseException
+from exceptions.base_exception import BaseException
 
 
 def serialize_data(data: any) -> any:

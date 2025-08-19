@@ -1,6 +1,6 @@
 from sqlalchemy import Column, DateTime, String, func
 
-from core.configs.database import Base
+from configs.database import Base
 
 
 class BaseModel(Base):

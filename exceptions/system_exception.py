@@ -1,5 +1,5 @@
-from core.exceptions.base_exception import BaseException
-from core.utils.messages import load_messages
+from exceptions.base_exception import BaseException
+from utils.messages import load_messages
 
 messages: dict = load_messages()
 

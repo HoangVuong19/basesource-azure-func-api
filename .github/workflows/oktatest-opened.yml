@@ -1,0 +1,50 @@
+name: CI - Pull Request Opened
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches: [feature/*, develop]
+    workflow_dispatch:
+
+env:
+    AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+    PYTHON_VERSION: '3.10'
+
+    APP_NAME: ${{ vars.APP_NAME }}
+    API_VERSION: ${{ vars.API_VERSION }}
+    API_PREFIX: ${{ vars.API_PREFIX }}
+    ALGORITHMS_JWT: ${{ vars.ALGORITHMS_JWT }}
+    ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+    DATABASE_HOSTNAME: ${{ vars.DATABASE_HOSTNAME }}
+    DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+    DATABASE_PASSWORD: ${{ vars.DATABASE_PASSWORD }}
+    DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+    DATABASE_NAME: ${{ vars.DATABASE_NAME }}
+    SYSTEM_LOG_FILE: ${{ vars.SYSTEM_LOG_FILE }}
+
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          pytest -v

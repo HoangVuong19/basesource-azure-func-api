@@ -2,8 +2,8 @@ from fastapi.testclient import TestClient
 import transaction
 from sqlalchemy.orm import Session, close_all_sessions, scoped_session, sessionmaker
 
-from core.configs.database import Base
-from core.middlewares import db_session_middleware
+from configs.database import Base
+from middlewares import db_session_middleware
 from tests.confrouter import test_app
 from tests.conftest import engine
 

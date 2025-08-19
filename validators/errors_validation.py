@@ -1,4 +1,4 @@
-from core.utils.messages import load_messages
+from utils.messages import load_messages
 
 
 messages = load_messages()

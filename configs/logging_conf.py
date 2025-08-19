@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from core.configs.context import request_id
+from configs.context import request_id
 
 
 class OneLineExceptionFormatter(logging.Formatter):

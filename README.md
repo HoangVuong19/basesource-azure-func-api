@@ -1,6 +1,6 @@
 - Create python venv
 
-> /opt/homebrew/bin/python3.10 -m venv .venv
+> /opt/homebrew/bin/python3.12 -m venv .venv
 
 - Use Venv
 

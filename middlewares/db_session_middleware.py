@@ -2,10 +2,10 @@ from fastapi import Request
 from sqlalchemy.exc import DatabaseError
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from core.configs.database import get_db_session
-from core.configs.logging_conf import logger
-from core.exceptions.system_exception import DBOperationalError
-from core.utils.response import response_fail
+from configs.database import get_db_session
+from configs.logging_conf import logger
+from exceptions.system_exception import DBOperationalError
+from utils.response import response_fail
 
 
 class DatabaseSessionMiddleware(BaseHTTPMiddleware):

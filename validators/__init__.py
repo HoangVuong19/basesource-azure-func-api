@@ -1,4 +1,4 @@
-from core.validators.errors_validation import CommonValidationError
+from validators.errors_validation import CommonValidationError
 
 
 class BeValidator:
