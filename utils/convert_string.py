@@ -1,4 +1,4 @@
-from core.configs.env import get_settings
+from configs.env import get_settings
 
 settings = get_settings()
 

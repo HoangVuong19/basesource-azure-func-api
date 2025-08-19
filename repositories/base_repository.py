@@ -6,8 +6,8 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import select
 
-from core.configs.database import ModelType
-from core.exceptions.app_exception import ResourceNotFound
+from configs.database import ModelType
+from exceptions.app_exception import ResourceNotFound
 
 T = TypeVar("T", bound=DeclarativeMeta)
 

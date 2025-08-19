@@ -1,11 +1,11 @@
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from core.configs.env import get_settings
-from core.configs.logging_conf import logger
-from core.exceptions.app_exception import AppException
-from core.exceptions.system_exception import SystemException
-from core.utils.response import response_fail
+from configs.env import get_settings
+from configs.logging_conf import logger
+from exceptions.app_exception import AppException
+from exceptions.system_exception import SystemException
+from utils.response import response_fail
 
 
 settings = get_settings()

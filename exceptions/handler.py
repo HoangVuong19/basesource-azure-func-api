@@ -1,7 +1,7 @@
-from core.configs.logging_conf import logger
-from core.exceptions.app_exception import AppException
-from core.exceptions.system_exception import SystemException
-from core.utils.response import response_fail
+from configs.logging_conf import logger
+from exceptions.app_exception import AppException
+from exceptions.system_exception import SystemException
+from utils.response import response_fail
 
 
 async def app_exception_handler(_, exc: AppException):

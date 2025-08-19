@@ -1,0 +1,32 @@
+name: CD - Deploy oktatest-func
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'oktatest-func'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+
+jobs:
+  deploy:
+    name: Build and Deploy Python Function
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 'Deploy to Azure Functions'
+        uses: Azure/functions-action@v1
+        id: deploy-to-function
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          sku: flexconsumption
+          remote-build: true
+        if: github.base_ref == 'develop' && github.event.pull_request.merged == true

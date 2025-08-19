@@ -2,27 +2,24 @@ from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from core.configs.env import get_settings
-from core.exceptions.app_exception import AppException
-from core.exceptions.handler import app_exception_handler
-from core.exceptions.handler import system_exception_handler
-from core.exceptions.system_exception import SystemException
-from core.middlewares.auth_middleware import AuthMiddleware
-from core.middlewares.db_session_middleware import DatabaseSessionMiddleware
-from core.middlewares.request_logging_middleware import RequestLoggingMiddleware
-from core.utils.convert_string import fill_prefix
+from configs.env import get_settings
+from exceptions.app_exception import AppException
+from exceptions.handler import app_exception_handler
+from exceptions.handler import system_exception_handler
+from exceptions.system_exception import SystemException
+from middlewares.auth_middleware import AuthMiddleware
+from middlewares.db_session_middleware import DatabaseSessionMiddleware
+from middlewares.request_logging_middleware import RequestLoggingMiddleware
+from utils.convert_string import fill_prefix
 
 settings = get_settings()
 
 
-def create_fastapi(api_route: Optional[str] = None) -> FastAPI:
+def create_fastapi() -> FastAPI:
     fastapi_params = {
         "title": settings.app_name,
         "version": settings.api_version,
     }
-
-    if api_route:
-        fastapi_params["root_path"] = fill_prefix(api_route)
 
     app = FastAPI(**fastapi_params)
 

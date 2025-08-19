@@ -1,5 +1,5 @@
 from dateutil.parser import parser
-from core.exceptions.app_exception import ConflictError, ResourceNotFound
+from exceptions.app_exception import ConflictError, ResourceNotFound
 
 def check_concurrency(db_obj, client_updated_at):
     if db_obj is None:

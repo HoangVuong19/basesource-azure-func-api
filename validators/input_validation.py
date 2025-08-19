@@ -1,5 +1,5 @@
-from core.validators import BeValidator
-from core.validators.errors_validation import StrMaxLenghtError, StrMinLenghtError, StrRequiredError
+from validators import BeValidator
+from validators.errors_validation import StrMaxLenghtError, StrMinLenghtError, StrRequiredError
 
 
 class InputValidator:
