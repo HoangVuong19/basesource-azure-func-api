@@ -2,7 +2,7 @@ import os
 from functools import lru_cache
 from typing import Literal
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -20,8 +20,7 @@ class Settings(BaseSettings):
     database_name: str = os.environ.get("DATABASE_NAME")
     system_log_file: str | None = os.environ.get("SYSTEM_LOG_FILE")
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env")
 
 
 @lru_cache
