@@ -10,6 +10,19 @@ env:
     AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
     PYTHON_VERSION: '3.10'
 
+    APP_NAME: ${{ vars.APP_NAME }}
+    API_VERSION: ${{ vars.API_VERSION }}
+    API_PREFIX: ${{ vars.API_PREFIX }}
+    ALGORITHMS_JWT: ${{ vars.ALGORITHMS_JWT }}
+    ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+    DATABASE_HOSTNAME: ${{ vars.DATABASE_HOSTNAME }}
+    DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+    DATABASE_PASSWORD: ${{ vars.DATABASE_PASSWORD }}
+    DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+    DATABASE_NAME: ${{ vars.DATABASE_NAME }}
+    SYSTEM_LOG_FILE: ${{ vars.SYSTEM_LOG_FILE }}
+
+
 jobs:
   test:
     name: Run Unit Tests
@@ -33,4 +46,5 @@ jobs:
 
       - name: Run tests
         run: |
+          source .venv/bin/activate
           pytest -v
