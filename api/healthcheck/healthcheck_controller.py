@@ -6,4 +6,4 @@ router = APIRouter()
 
 @router.get("/")
 def health_check():
-    return response_success("Health check good")
+    return response_success("Health check very good")
