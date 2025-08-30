@@ -2,6 +2,7 @@ from datetime import datetime
 from http import HTTPStatus
 
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
 from exceptions.base_exception import BaseException
 
@@ -16,6 +17,9 @@ def serialize_data(data: any) -> any:
     Returns:
         Any: Serialized data.
     """
+    if isinstance(data, BaseModel):
+        return data.model_dump(mode='json', by_alias=True)
+    
     if hasattr(data, "__dict__"):
         data_dict: dict[str, any] = data.__dict__
         data = {k: v for k, v in data_dict.items() if not k.startswith("_")}

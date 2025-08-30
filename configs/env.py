@@ -19,7 +19,8 @@ class Settings(BaseSettings):
     database_port: str = os.environ.get("DATABASE_PORT")
     database_name: str = os.environ.get("DATABASE_NAME")
     system_log_file: str | None = os.environ.get("SYSTEM_LOG_FILE")
-
+    app_timezone: str = os.environ.get("APP_TIMEZONE", "Asia/Tokyo")
+    
     model_config = SettingsConfigDict(env_file=".env")
 
 

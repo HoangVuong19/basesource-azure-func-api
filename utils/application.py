@@ -10,7 +10,6 @@ from exceptions.system_exception import SystemException
 from middlewares.auth_middleware import AuthMiddleware
 from middlewares.db_session_middleware import DatabaseSessionMiddleware
 from middlewares.request_logging_middleware import RequestLoggingMiddleware
-from utils.convert_string import fill_prefix
 
 settings = get_settings()
 
@@ -34,9 +33,9 @@ def create_fastapi() -> FastAPI:
 
     # add middlewares
     __MIDDLEWARES__ = [
+        AuthMiddleware,
         RequestLoggingMiddleware,
         DatabaseSessionMiddleware,
-        AuthMiddleware,
     ]
 
     for middleware in __MIDDLEWARES__.__reversed__():

@@ -166,18 +166,26 @@ class BaseRepository(Generic[ModelType]):
         return self._all(query)
 
     def get_by_id(
-        self, value: Any, join_: set[str] | None = None, id_key="id"
-    ) -> ModelType:
+        self,
+        value: Any,
+        join_: set[str] | None = None,
+        id_key: str = "id",
+        del_flag: bool | None = None,
+    ) -> ModelType | None:
         """
         Returns the model instance matching the field and value.
 
         :param value: The value to match.
         :param join_: The joins to make.
         :param id_key: The id field name.
-        :return: The model instance.
+        :param del_flag: bool
+        :return: The model instance or None.
         """
         query = self._query(join_)
         query = self._get_by(query, id_key, value)
+
+        if del_flag is not None:
+            query = query.filter(self.model.del_flag == del_flag)
 
         if join_ is not None:
             return self.all_unique(query)
@@ -196,18 +204,33 @@ class BaseRepository(Generic[ModelType]):
             self.session.rollback()
             raise
 
-    def delete_by_id(self, id: int | str, id_key="id") -> None:
+    def delete_by_id(
+        self, entity_id: int | str, id_key: str = "id", logical: bool = True
+    ) -> None:
         """
-        Deletes the entity by ID.
+        Delete entity by ID.
 
-        :param id: The ID of the entity to delete.
-        :param id_key: The id field name.
+        :param entity_id: The ID of the entity to delete.
+        :param id_key: The id field name (default: "id").
+        :param logical: If True, perform logic delete (set del_flag = True).
         :return: None
         """
         try:
-            entity = self.get_by_id(id, id_key=id_key)
+            entity = self.get_by_id(entity_id, id_key=id_key, del_flag=False)
+            if not entity:
+                raise ResourceNotFound()
 
-            self.session.delete(entity)
+            if logical:
+                # Logic delete
+                if not hasattr(entity, "del_flag"):
+                    raise AttributeError(
+                        f"Model {self.model.__name__} does not have 'del_flag' field"
+                    )
+                setattr(entity, "del_flag", True)
+            else:
+                # Physical delete
+                self.session.delete(entity)
+
         except Exception:
             self.session.rollback()
             raise
