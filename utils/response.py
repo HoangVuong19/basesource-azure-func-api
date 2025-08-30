@@ -4,7 +4,7 @@ from http import HTTPStatus
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from exceptions.base_exception import BaseException
+from exceptions.app_exception import AppException
 
 
 def serialize_data(data: any) -> any:
@@ -18,8 +18,8 @@ def serialize_data(data: any) -> any:
         Any: Serialized data.
     """
     if isinstance(data, BaseModel):
-        return data.model_dump(mode='json', by_alias=True)
-    
+        return data.model_dump(mode="json", by_alias=True)
+
     if hasattr(data, "__dict__"):
         data_dict: dict[str, any] = data.__dict__
         data = {k: v for k, v in data_dict.items() if not k.startswith("_")}
@@ -43,7 +43,7 @@ def response_success(data: any):
     )
 
 
-def response_fail(exc: BaseException | list[BaseException]):
+def response_fail(exc: AppException | list[AppException]):
     if isinstance(exc, list):
         errors = [{"code": e.error_code, "message": e.message} for e in exc]
         status_code = exc[0].http_code if exc else HTTPStatus.INTERNAL_SERVER_ERROR
