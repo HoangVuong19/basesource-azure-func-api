@@ -1,7 +1,13 @@
 import logging
 import sys
+import os
 
 from configs.context import request_id
+
+from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
+from azure.monitor.opentelemetry.exporter import AzureMonitorLogExporter
 
 
 class OneLineExceptionFormatter(logging.Formatter):
@@ -27,7 +33,7 @@ class ContextFilter(logging.Filter):
 
 # common formatter
 formatter = OneLineExceptionFormatter(
-    "%(asctime)-15s - %(request_id)s - %(name)-5s - %(levelname)s - [%(filename)s:%(lineno)s - %(funcName)s() ] - %(message)s"
+    "[%(filename)s:%(lineno)s - %(funcName)s()] - " "%(user_id)s - " "%(message)s"
 )
 
 # root logger
@@ -36,15 +42,31 @@ logger.setLevel(logging.DEBUG)
 
 console_handler = logging.StreamHandler(sys.stdout)
 console_handler.setFormatter(formatter)
-
 logger.addHandler(console_handler)
-logger.addFilter(ContextFilter())
 
 # sql logger
 sql_logger = logging.getLogger("sqlalchemy.engine.Engine")
 sql_logger.setLevel(logging.INFO)
-
 sql_logger.addHandler(console_handler)
+
+conn_str = os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING")
+if conn_str:
+    provider = LoggerProvider(
+        resource=Resource.create({"service.name": "redb-backend"})
+    )
+    provider.add_log_record_processor(
+        BatchLogRecordProcessor(
+            AzureMonitorLogExporter.from_connection_string(conn_str)
+        )
+    )
+
+    azure_handler = LoggingHandler(level=logging.INFO, logger_provider=provider)
+    azure_handler.setFormatter(formatter)
+
+    logger.addHandler(azure_handler)
+    sql_logger.addHandler(azure_handler)
+
+logger.addFilter(ContextFilter())
 sql_logger.addFilter(ContextFilter())
 
 # stop delegate logs to root logger (avoid duplicate logs)

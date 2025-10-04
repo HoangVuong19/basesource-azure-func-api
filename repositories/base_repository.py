@@ -25,7 +25,6 @@ class BaseRepository(Generic[ModelType]):
             db_session: SQLAlchemy session
         """
         self.session = db_session
-        self.db = db_session
 
     def create(self, attributes: dict[str, Any] = None) -> ModelType:
         """
